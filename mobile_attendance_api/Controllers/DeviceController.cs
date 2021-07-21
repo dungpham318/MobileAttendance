@@ -102,7 +102,7 @@ namespace mobile_attendance_api.Controllers
           {
             return Ok(new
             {
-              resultCode = -1,
+              resultCode = 1,
               message = "Success",
               data = existDevice,
               checkType = 1
