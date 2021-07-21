@@ -41,7 +41,18 @@ namespace mobile_attendance_api.Repositories
     public async Task<Device> GetByUser(int id)
     {
       //   return await _context.Devices.Where(x => x.LecID == id && x.Status == true).ToListAsync();
-      return await _context.Devices.FirstAsync(x => x.LecID == id && x.Status == true);
+      try
+      {
+        var device = await _context.Devices.FirstAsync(x => x.LecID == id && x.Status == true);
+        return device;
+        //   return await _context.Devices.Where(x => x.LecID == id && x.Status == true).ToListAsync();
+      }
+      catch (Exception e)
+      {
+        Console.WriteLine(e);
+        return null;
+        throw;
+      }
     }
 
     public async Task<Device> GetByDeviceCode(string deviceCode)

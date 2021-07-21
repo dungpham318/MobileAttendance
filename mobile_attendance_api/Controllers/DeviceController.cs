@@ -96,7 +96,6 @@ namespace mobile_attendance_api.Controllers
 
         // var existDevice = await _deviceRepository.GetByUser(lecture.Id);
         var existDevice = await _deviceRepository.GetByDeviceCode(deviceCode);
-        Console.WriteLine(lecture.Devices);
         if (existDevice != null)
         {
           if (existDevice.LecID == lecture.Id)
