@@ -209,6 +209,7 @@ namespace mobile_attendance_api.Controllers
 
         Room room = new()
         {
+          Id = id,
           Name = updateRoomDto.Name,
           MACAddress = updateRoomDto.MACAddress,
           DateUpdated = DateTime.Now,
