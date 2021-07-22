@@ -77,6 +77,10 @@ namespace mobile_attendance_api
       services.AddScoped<ISubjectRepository, SubjectRepository>();
       services.AddScoped<ICourseRepository, CourseRepository>();
       services.AddScoped<IDeviceRepository, DeviceRepository>();
+      services.AddScoped<ISessionRepository, SessionRepository>();
+      services.AddScoped<IRoomRepository, RoomRepository>();
+      services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+
 
       services.AddSwaggerGen(c =>
       {
