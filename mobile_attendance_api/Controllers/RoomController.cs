@@ -123,6 +123,7 @@ namespace mobile_attendance_api.Controllers
 
         Room room = new()
         {
+          Name = createRoomDto.Name,
           MACAddress = createRoomDto.MACAddress,
           QRCode = createRoomDto.QRCode,
           DateCreated = DateTime.Now,
@@ -208,9 +209,9 @@ namespace mobile_attendance_api.Controllers
 
         Room room = new()
         {
+          Name = updateRoomDto.Name,
           MACAddress = updateRoomDto.MACAddress,
           QRCode = updateRoomDto.QRCode,
-          DateCreated = DateTime.Now,
           DateUpdated = DateTime.Now,
         };
 
