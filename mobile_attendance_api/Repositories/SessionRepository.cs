@@ -151,8 +151,7 @@ namespace mobile_attendance_api.Repositories
       try
       {
 
-        var sessionList = await _context.Sessions.Where(x => x.LecID == userId && x.Date == date).ToListAsync();
-        sessionList.OrderBy(x => x.StartTime);
+        var sessionList = await _context.Sessions.Where(x => x.LecID == userId && x.Date == date).OrderBy(x => x.StartTime).ToListAsync();
         return sessionList;
 
       }
