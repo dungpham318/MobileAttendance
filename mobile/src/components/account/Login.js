@@ -18,7 +18,6 @@ import font from '../../res/font'
 import TextField from '../custom/TextField'
 import Button from '../custom/Button'
 import SnackBar from '../custom/SnackBar'
-import { userProfile } from '../../settings'
 import Loading from '../custom/Loading'
 import { setKeyChain, getKeyChain, resetKeyChain } from '../custom/keychain'
 import {
@@ -27,6 +26,8 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
+import { URL, userProfile } from '../../settings/index'
+import DeviceInfo, { getUniqueId, getManufacturer } from 'react-native-device-info'
 
 GoogleSignin.configure({
   // scopes: ['email'], // what API you want to access on behalf of the user, default is email and profile
@@ -42,7 +43,8 @@ export default class Login extends Component {
     this.state = {
       rememberLogin: false,
       username: '',
-      password: ''
+      password: '',
+      loading: false
     }
     this.snackBar = React.createRef()
   }
@@ -79,7 +81,7 @@ export default class Login extends Component {
     // }
   }
 
-  componentDidUpdate(prevProps) {
+  async componentDidUpdate(prevProps) {
     if (this.props.loadingLogin !== prevProps.loadingLogin && !this.props.loadingLogin) {
       if (this.props.errorLogin !== null) {
         Alert.alert(
@@ -89,27 +91,40 @@ export default class Login extends Component {
           { cancelable: false }
         )
       } else if (this.props.responseLogin !== null) {
-        if (this.props?.responseLogin?.status === 200) {
-          if (this.state.rememberLogin) {
-            setKeyChain(this.state.username, this.state.password)
+        if (this.props?.responseLogin?.resultCode === 1) {
+          userProfile.id = this.props?.responseLogin?.data?.userData?.id
+          userProfile.name = this.props?.responseLogin?.data?.userData?.name
+          userProfile.email = this.props?.responseLogin?.data?.userData?.email
+          userProfile.emailToken = this.props?.responseLogin?.data?.userData?.emailToken
+          userProfile.dateCreated = this.props?.responseLogin?.data?.userData?.dateCreated
+          userProfile.dateUpdated = this.props?.responseLogin?.data?.userData?.dateUpdated
+          userProfile.isAdmin = this.props?.responseLogin?.data?.userData?.isAdmin
+          userProfile.googleId = this.props?.responseLogin?.data?.userData?.googleId
+          userProfile.icon = this.props?.responseLogin?.data?.userData?.icon
+          userProfile.role = this.props?.responseLogin?.data?.userData?.role
+          userProfile.devices = this.props?.responseLogin?.data?.userData?.devices
+          userProfile.notifications = this.props?.responseLogin?.data?.userData?.notifications
+          userProfile.token = this.props?.responseLogin?.data?.token
+
+          let deviceId = await getUniqueId()
+          let checkDevice = await this.checkDevice(deviceId)
+          console.log(checkDevice)
+          if (checkDevice.resultCode === -1) {
+            if (checkDevice?.checkType === -1) {
+              alert(checkDevice.message)
+            } else {
+              this.props.navigation.replace('CheckDevice', {
+                checkType: checkDevice?.checkType
+              })
+            }
+
           } else {
-            resetKeyChain()
+            this.props.navigation.replace('Home')
           }
-          userProfile.diaChi = this.props?.responseLogin?.data?.diaChi
-          userProfile.hoVaTen = this.props?.responseLogin?.data?.hoVaTen
-          userProfile.id = this.props?.responseLogin?.data?.id
-          userProfile.matKhau = this.props?.responseLogin?.data?.matKhau
-          userProfile.namSinh = this.props?.responseLogin?.data?.namSinh
-          userProfile.ngayTao = this.props?.responseLogin?.data?.ngayTao
-          userProfile.soCmt = this.props?.responseLogin?.data?.soCmt
-          userProfile.soDienThoai = this.props?.responseLogin?.data?.soDienThoai
-          userProfile.soHopDong = this.props?.responseLogin?.data?.soHopDong
-          this.props.navigation.replace('Home')
         } else {
-          resetKeyChain()
           Alert.alert(
             "Thông báo",
-            this.props?.responseLogin?.message,
+            this.props.responseLogin.message,
             [{ text: "OK", onPress: () => console.log("OK Pressed") }],
             { cancelable: false }
           )
@@ -118,13 +133,35 @@ export default class Login extends Component {
     }
   }
 
+  checkDevice = async (deviceCode) => {
+    await this.setState({ loading: true })
+    let url = '/device/check_device?deviceCode=' + deviceCode
+    return fetch(URL + url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${userProfile?.token}`,
+      },
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then(result => {
+        this.setState({ loading: false })
+        return result
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+  }
+
   signIn = async () => {
     try {
       await GoogleSignin.signOut();
       await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
       const userInfo = await GoogleSignin.signIn();
-      if (userInfo?.idToken) {
 
+      if (userInfo?.idToken) {
         this.props.loginAction({
           emailToken: userInfo?.idToken
         })
@@ -132,7 +169,6 @@ export default class Login extends Component {
         alert('Login fail!')
       }
 
-      console.log(userInfo)
     } catch (error) {
       console.log(error)
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -161,7 +197,7 @@ export default class Login extends Component {
           height: '100%'
         }}
       >
-        {this.props.loadingLogin && <Loading />}
+        {(this.props.loadingLogin || this.state.loading) && <Loading />}
         <SnackBar
           ref={this.snackBar}
         />

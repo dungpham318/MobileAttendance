@@ -41,7 +41,7 @@ const Header = (props) => {
           />
         </TouchableOpacity>
         <Text style={{
-          color: '#ffffff',
+          color: '#262626',
           fontSize: size.s30,
           paddingVertical: size.s30,
           fontFamily: font.bold,

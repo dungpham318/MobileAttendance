@@ -39,15 +39,16 @@ const Button = (props) => {
         borderRadius: size.s20,
         alignItems: 'center',
         justifyContent: 'center',
-
+        backgroundColor: '#FE9E23'
       }, props.style]}
       onPress={() => props.onPress()}>
 
       <Text style={{
         fontSize: size.s30,
-        paddingVertical: size.s30,
+        paddingVertical: size.s25,
         paddingHorizontal: size.s30,
         fontFamily: font.bold,
+        color: '#ffffff'
       }}>{props.label}</Text>
     </TouchableOpacity>
   )

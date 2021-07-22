@@ -20,7 +20,7 @@ const Loading = (props) => {
       }}
     >
       <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" color={'#A680CD'} />
+        <ActivityIndicator size="large" color={'#FE9E23'} />
       </View>
     </View>
   )

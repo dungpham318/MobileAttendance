@@ -28,6 +28,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 const mapStateToProps = (state) => {
+  console.log(state.loginReducers)
   return {
     loadingLogin: state.loginReducers.loading,
     responseLogin: state.loginReducers.response,

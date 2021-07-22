@@ -3,24 +3,27 @@ let URL = ''
 let isProduct = false
 
 if (isProduct) {
-  URL = 'http://192.168.100.12:5001'
+  URL = 'http://swd391.eastasia.cloudapp.azure.com:5000'
 
 } else {
-  URL = 'http://192.168.100.12:5001'
+  URL = 'http://swd391.eastasia.cloudapp.azure.com:5000'
 
 }
 
 let userProfile = {
-  "diaChi": "",
-  "hoVaTen": "",
-  "id": '',
-  "matKhau": "",
-  "namSinh": "",
-  "ngayTao": "",
-  "soCmt": "",
-  "soDienThoai": "",
-  "soHopDong": "",
-  "code_transaction": ''
+  "id": 1,
+  "name": "",
+  "email": "",
+  "emailToken": "",
+  "dateCreated": "",
+  "dateUpdated": "",
+  "isAdmin": "",
+  "googleId": "",
+  "icon": "",
+  "role": "",
+  "devices": "",
+  "notifications": "",
+  "token": ""
 }
 
 export { URL, userProfile };
