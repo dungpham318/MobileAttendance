@@ -74,7 +74,11 @@ namespace mobile_attendance_api.Controllers
         var checkRoom = await _roomRepository.Get(session.RoomID);
         Console.WriteLine(session.RoomID);
         Console.WriteLine(createAttendanceDto.MACAddress);
+        Console.WriteLine(checkRoom.MACAddress);
         Console.WriteLine(createAttendanceDto.QRCode);
+        Console.WriteLine(checkRoom.QRCode);
+        Console.WriteLine(checkRoom.MACAddress != createAttendanceDto.MACAddress);
+        Console.WriteLine(checkRoom.QRCode != createAttendanceDto.QRCode);
         if (checkRoom.MACAddress != createAttendanceDto.MACAddress
         || checkRoom.QRCode != createAttendanceDto.QRCode)
         {
