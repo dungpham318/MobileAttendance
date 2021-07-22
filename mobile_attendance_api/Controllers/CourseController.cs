@@ -17,6 +17,7 @@ namespace mobile_attendance_api.Controllers
     private readonly ICourseRepository _courseRepository;
     private readonly ISubjectRepository _subjectRepository;
     private readonly ITermRepository _termRepository;
+
     public CourseController(
         ICourseRepository courseRepository,
         ISubjectRepository subjectRepository,

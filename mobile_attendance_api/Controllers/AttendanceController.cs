@@ -19,15 +19,18 @@ namespace mobile_attendance_api.Controllers
     private readonly IAttendanceRepository _attendanceRepository;
     private readonly ISessionRepository _sessionRepository;
     private readonly IRoomRepository _roomRepository;
+    private readonly ICourseRepository _courseRepository;
     public AttendanceController(
         IAttendanceRepository attendanceRepository,
         ISessionRepository sessionRepository,
-        IRoomRepository roomRepository
+        IRoomRepository roomRepository,
+        ICourseRepository courseRepository
         )
     {
       _attendanceRepository = attendanceRepository;
       _sessionRepository = sessionRepository;
       _roomRepository = roomRepository;
+      _courseRepository = courseRepository;
     }
 
     [Authorize(Role.User)]
