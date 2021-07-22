@@ -5,6 +5,7 @@ namespace mobile_attendance_api.Dtos
 {
   public class CreateRoomDto
   {
+    public string Name { get; set; }
     public string MACAddress { get; set; }
     public string QRCode { get; set; }
 

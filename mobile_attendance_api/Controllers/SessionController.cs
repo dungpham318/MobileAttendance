@@ -17,10 +17,16 @@ namespace mobile_attendance_api.Controllers
   {
     private readonly ISessionRepository _sessionRepository;
     private readonly IAttendanceRepository _attendanceRepository;
-    public SessionController(ISessionRepository sessionRepository, IAttendanceRepository attendanceRepository)
+    private readonly IRoomRepository _roomRepository;
+    public SessionController(
+        ISessionRepository sessionRepository,
+        IAttendanceRepository attendanceRepository,
+        IRoomRepository roomRepository
+        )
     {
       _sessionRepository = sessionRepository;
       _attendanceRepository = attendanceRepository;
+      _roomRepository = roomRepository;
     }
 
     [Authorize(Role.Admin)]
@@ -278,6 +284,9 @@ namespace mobile_attendance_api.Controllers
           {
             var checkAttendance = await _attendanceRepository.GetBySession(item.Id);
             item.Attendance = checkAttendance;
+            var checkRoom = await _roomRepository.Get(item.RoomID);
+            // Console.WriteLine(checkRoom.Id);
+            item.Room = checkRoom;
           }
         }
 

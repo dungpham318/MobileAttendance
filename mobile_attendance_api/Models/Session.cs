@@ -31,6 +31,7 @@ namespace mobile_attendance_api.Models
     public DateTime DateUpdated { get; set; }
 
     public Attendance Attendance { get; set; }
+    public Room Room { get; set; }
 
   }
 }
