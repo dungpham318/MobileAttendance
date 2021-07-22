@@ -61,38 +61,38 @@ namespace mobile_attendance_api.Repositories
 
     public async Task Update(Room room)
     {
-      var itemToUpdate = await _context.Sessions.FindAsync(room.Id);
+      var itemToUpdate = await _context.Rooms.FindAsync(room.Id);
       if (itemToUpdate == null)
         throw new NullReferenceException();
 
-      //   if (course.Name != null)
+      if (room.Name != null)
+      {
+        itemToUpdate.Name = room.Name;
+      }
+      else
+      {
+        itemToUpdate.Name = itemToUpdate.Name;
+      }
+
+      //   if (room.QRCode != null)
       //   {
-      //     itemToUpdate.Name = course.Name;
+      //     itemToUpdate.QRCode = room.QRCode;
       //   }
       //   else
       //   {
-      //     itemToUpdate.Name = itemToUpdate.Name;
+      //     itemToUpdate.QRCode = itemToUpdate.QRCode;
       //   }
 
-      //   if (course.SubID != 0)
-      //   {
-      //     itemToUpdate.SubID = course.SubID;
-      //   }
-      //   else
-      //   {
-      //     itemToUpdate.SubID = itemToUpdate.SubID;
-      //   }
+      if (room.MACAddress != null)
+      {
+        itemToUpdate.MACAddress = room.MACAddress;
+      }
+      else
+      {
+        itemToUpdate.MACAddress = itemToUpdate.MACAddress;
+      }
 
-      //   if (course.TermID != 0)
-      //   {
-      //     itemToUpdate.TermID = course.TermID;
-      //   }
-      //   else
-      //   {
-      //     itemToUpdate.TermID = itemToUpdate.TermID;
-      //   }
-
-      //   itemToUpdate.DateUpdated = course.DateUpdated;
+      itemToUpdate.DateUpdated = room.DateUpdated;
 
       await _context.SaveChangesAsync();
 

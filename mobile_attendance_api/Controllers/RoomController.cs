@@ -211,7 +211,6 @@ namespace mobile_attendance_api.Controllers
         {
           Name = updateRoomDto.Name,
           MACAddress = updateRoomDto.MACAddress,
-          QRCode = updateRoomDto.QRCode,
           DateUpdated = DateTime.Now,
         };
 
