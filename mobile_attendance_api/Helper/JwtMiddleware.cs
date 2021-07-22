@@ -55,7 +55,6 @@ namespace mobile_attendance_api.Helper
         // Console.WriteLine(role);
 
         var user = await userService.Get(userId);
-
         // attach user to context on successful jwt validationx
         context.Items["Lecture"] = user;
       }

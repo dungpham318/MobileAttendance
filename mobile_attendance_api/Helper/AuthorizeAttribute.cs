@@ -16,7 +16,7 @@ public class AuthorizeAttribute : Attribute, IAuthorizationFilter
   public void OnAuthorization(AuthorizationFilterContext context)
   {
     var user = (Lecture)context.HttpContext.Items["Lecture"];
-    if (user == null || user.Role != _role)
+    if (user == null || (user.Role == Role.User && user.Role != _role))
     {
       context.Result = new JsonResult(new
       {

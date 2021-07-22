@@ -11,7 +11,8 @@ namespace mobile_attendance_api.Models
   {
     [Key]
     public int Id { get; set; }
-    public string SessionID { get; set; }
+    [ForeignKey("FK_Session")]
+    public int SessionID { get; set; }
     public DateTime CheckinTime { get; set; }
     public DateTime CheckoutTime { get; set; }
     public DateTime DateCreated { get; set; }
