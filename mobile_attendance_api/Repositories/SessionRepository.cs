@@ -152,7 +152,7 @@ namespace mobile_attendance_api.Repositories
       {
 
         var sessionList = await _context.Sessions.Where(x => x.LecID == userId && x.Date == date).ToListAsync();
-
+        sessionList.OrderBy(x => x.StartTime);
         return sessionList;
 
       }
