@@ -63,6 +63,7 @@ namespace mobile_attendance_api.Repositories
       string email;
       string googleId;
       string icon;
+      string name;
 
       var urlParameters = "?id_token=" + lecture.EmailToken;
       HttpClient client = new HttpClient();
@@ -83,6 +84,7 @@ namespace mobile_attendance_api.Repositories
         email = dataObjects.email;
         googleId = dataObjects.sub;
         icon = dataObjects.picture;
+        name = dataObjects.name;
       }
       else
       {
@@ -97,6 +99,7 @@ namespace mobile_attendance_api.Repositories
       {
         lecture1.GoogleId = googleId;
         lecture1.Icon = icon;
+        lecture1.Name = name;
         await _context.SaveChangesAsync();
 
         var resLecture = await _context.Lectures.FindAsync(lecture1.Id);
