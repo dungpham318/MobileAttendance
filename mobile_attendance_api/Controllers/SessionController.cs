@@ -234,6 +234,7 @@ namespace mobile_attendance_api.Controllers
 
         Session session = new()
         {
+          Id = id,
           Name = updateSessionDto.Name,
           Date = updateSessionDto.Date,
           StartTime = updateSessionDto.StartTime,
