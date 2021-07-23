@@ -14,6 +14,8 @@ namespace mobile_attendance_api.Models
     public int TermID { get; set; }
     public DateTime DateCreated { get; set; }
     public DateTime DateUpdated { get; set; }
+    public Subject Subject { get; set; }
+    public Term Term { get; set; }
 
   }
 }

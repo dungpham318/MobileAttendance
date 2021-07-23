@@ -37,6 +37,15 @@ namespace mobile_attendance_api.Controllers
       try
       {
         var courses = await _courseRepository.GetAll();
+
+        foreach (var item in courses)
+        {
+          var subject = await _subjectRepository.Get(item.SubID);
+          var term = await _termRepository.Get(item.TermID);
+          item.Subject = subject;
+          item.Term = term;
+        }
+
         return Ok(new
         {
           resultCode = 1,
@@ -107,7 +116,7 @@ namespace mobile_attendance_api.Controllers
             message = "Term not found!",
           });
         }
-        var subject = await _termRepository.Get(createCourseDto.TermID);
+        var subject = await _subjectRepository.Get(createCourseDto.SubID);
 
         if (subject == null)
         {
@@ -129,6 +138,8 @@ namespace mobile_attendance_api.Controllers
         };
 
         await _courseRepository.Add(course);
+
+
 
         return Ok(new
         {
