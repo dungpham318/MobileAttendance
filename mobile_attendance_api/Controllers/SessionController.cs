@@ -40,6 +40,20 @@ namespace mobile_attendance_api.Controllers
       try
       {
         var sessions = await _sessionRepository.GetAll();
+
+        if (sessions.Count() > 0)
+        {
+          foreach (var item in sessions)
+          {
+            var checkAttendance = await _attendanceRepository.GetBySession(item.Id);
+            item.Attendance = checkAttendance;
+            var checkRoom = await _roomRepository.Get(item.RoomID);
+            item.Room = checkRoom;
+            var checkCourse = await _courseRepository.Get(item.CourseID);
+            item.Course = checkCourse;
+          }
+        }
+
         return Ok(new
         {
           resultCode = 1,
