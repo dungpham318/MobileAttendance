@@ -15,6 +15,5 @@ namespace mobile_attendance_api.Models
     public DateTime DateCreated { get; set; }
     public DateTime DateUpdated { get; set; }
 
-    public List<Course> Courses { get; set; }
   }
 }
