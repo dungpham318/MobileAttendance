@@ -77,10 +77,10 @@ namespace mobile_attendance_api.Repositories
       if (response.IsSuccessStatusCode)
       {
         var dataObjects = response.Content.ReadAsAsync<GoogleLoginData>().Result;
-        if (dataObjects.hd != "fpt.edu.vn")
-        {
-          return null;
-        }
+        // if (dataObjects.hd != "fpt.edu.vn")
+        // {
+        //   return null;
+        // }
         email = dataObjects.email;
         googleId = dataObjects.sub;
         icon = dataObjects.picture;
