@@ -33,6 +33,7 @@ namespace mobile_attendance_api.Models
     public Attendance Attendance { get; set; }
     public Room Room { get; set; }
     public Course Course { get; set; }
+    public Lecture Lecture { get; set; }
 
   }
 }

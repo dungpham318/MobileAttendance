@@ -19,18 +19,21 @@ namespace mobile_attendance_api.Controllers
     private readonly IAttendanceRepository _attendanceRepository;
     private readonly IRoomRepository _roomRepository;
     private readonly ICourseRepository _courseRepository;
+    private readonly ILectureRepository _lectureRepository;
 
     public SessionController(
         ISessionRepository sessionRepository,
         IAttendanceRepository attendanceRepository,
         IRoomRepository roomRepository,
-        ICourseRepository courseRepository
+        ICourseRepository courseRepository,
+        ILectureRepository lectureRepository
         )
     {
       _sessionRepository = sessionRepository;
       _attendanceRepository = attendanceRepository;
       _roomRepository = roomRepository;
       _courseRepository = courseRepository;
+      _lectureRepository = lectureRepository;
     }
 
     [Authorize(Role.Admin)]
@@ -51,6 +54,8 @@ namespace mobile_attendance_api.Controllers
             item.Room = checkRoom;
             var checkCourse = await _courseRepository.Get(item.CourseID);
             item.Course = checkCourse;
+            var checkLecture = await _lectureRepository.Get(item.LecID);
+            item.Lecture = checkLecture;
           }
         }
 
